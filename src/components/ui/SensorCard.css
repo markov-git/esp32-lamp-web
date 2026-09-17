@@ -1,0 +1,39 @@
+.indicator-card {
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #e4eaed;
+    border-radius: 15px;
+}
+
+.indicator-card-container {
+    display: flex;
+    gap: 8px;
+}
+
+.indicator-card-icon {
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+}
+
+.indicator-card-icon img {
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+}
+
+.indicator-card-content {
+    display: flex;
+    flex-direction: column;
+    min-width: max-content;
+}
+
+.indicator-card-caption {
+    font-size: 12px;
+    color: #74818a
+}
+
+.indicator-card-value {
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 4px
+}
