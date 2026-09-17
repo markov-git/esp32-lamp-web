@@ -134,6 +134,9 @@ button {
 }
 
 .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .topbar {
@@ -198,5 +201,24 @@ button {
 .sensor-cards-row {
     display: flex;
     gap: 12px;
-    margin-bottom: 30px;
+}
+
+.card {
+    width: 100%;
+    padding: 10px 16px;
+    background: #fff;
+    border: 1px solid #e4eaed;
+    border-radius: 15px;
+}
+
+.card-caption {
+    font-size: 18px;
+    line-height: 1.1;
+    font-weight: 600;
+    margin: 5px 0 14px
+}
+
+.card-content {
+    display: flex;
+    gap: 12px;
 }

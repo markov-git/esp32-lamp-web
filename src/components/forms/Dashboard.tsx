@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { FormHead } from '../ui/FormHead.tsx';
 import { SensorCard } from '../ui/SensorCard.tsx';
+import { Card } from '../ui/Card.tsx';
+import { useAppContext } from '../../Context.tsx';
+import { LampCard } from '../ui/LampCard.tsx';
 
 
 export const Dashboard: React.ComponentType = () => {
+	const ctx = useAppContext();
 
 	return (
 		<div className="form-container">
@@ -37,6 +41,12 @@ export const Dashboard: React.ComponentType = () => {
 					iconPath="/flower.svg"
 				/>
 			</div>
+
+			<Card caption="Управление лампами">
+				<LampCard value={ctx?.state.lamps[0]}/>
+				<LampCard value={ctx?.state.lamps[1]}/>
+				<LampCard value={ctx?.state.lamps[2]}/>
+			</Card>
 		</div>
 	);
 };
