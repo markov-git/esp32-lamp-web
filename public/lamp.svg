@@ -1,25 +1,143 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Grow lamp">
+<svg width="60" height="60" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fff1f4"/>
-      <stop offset="1" stop-color="#ffe7ed"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="128" y2="128">
+      <stop stop-color="#E8FFB0"/>
+      <stop offset="1" stop-color="#B9F56A"/>
     </linearGradient>
-    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#ff234b"/>
-      <stop offset=".5" stop-color="#ec2ba7"/>
-      <stop offset="1" stop-color="#5345e8"/>
+
+    <linearGradient id="lamp" x1="30" y1="20" x2="98" y2="62">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#DDE4E8"/>
     </linearGradient>
-    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#303b48"/>
-      <stop offset="1" stop-color="#17212c"/>
+
+    <linearGradient id="light" x1="64" y1="53" x2="64" y2="103">
+      <stop stop-color="#FF72D2" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#FFD6F3" stop-opacity=".05"/>
     </linearGradient>
+
+    <linearGradient id="leaf" x1="35" y1="85" x2="87" y2="105">
+      <stop stop-color="#9BEF32"/>
+      <stop offset="1" stop-color="#36A940"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity=".15"/>
+    </filter>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
   </defs>
-  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
-  <path d="M32 9v8" stroke="#27323e" stroke-width="3.5" stroke-linecap="round"/>
-  <rect x="25" y="16" width="14" height="7" rx="3.5" fill="url(#body)"/>
-  <path d="M17 27c1.5-4 5-6 9-6h12c4 0 7.5 2 9 6l2 5H15l2-5Z" fill="url(#body)"/>
-  <ellipse cx="32" cy="32.5" rx="18" ry="5" fill="#fff1f6"/>
-  <ellipse cx="32" cy="32.5" rx="16" ry="3.5" fill="url(#glow)"/>
-  <path d="M19 39l-3 7M25 40l-2 9M32 40v10M39 40l2 9M45 39l3 7"
-        stroke="url(#glow)" stroke-width="2.8" stroke-linecap="round"/>
+
+  <!-- Background -->
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+
+  <!-- Soft glow -->
+  <ellipse cx="64" cy="73" rx="43" ry="40"
+           fill="#FF9BDF" opacity=".2" filter="url(#glow)"/>
+
+  <!-- Lamp cable -->
+  <path d="M64 5V20" stroke="#41454A" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Lamp -->
+  <g filter="url(#shadow)">
+    <path
+            d="M39 24C39 18.5 43.5 15 49 15H79C84.5 15 89 18.5 89 24L96 47H32L39 24Z"
+            fill="url(#lamp)"
+    />
+
+    <!-- Lamp rim -->
+    <ellipse cx="64" cy="47" rx="32" ry="10" fill="#F6A6DE"/>
+    <ellipse cx="64" cy="45.5" rx="28" ry="7.5" fill="#E83DB6"/>
+
+    <!-- LEDs -->
+    <g fill="#FFF8FF">
+      <circle cx="49" cy="44" r="2.5"/>
+      <circle cx="58" cy="42" r="2.5"/>
+      <circle cx="68" cy="42" r="2.5"/>
+      <circle cx="78" cy="44" r="2.5"/>
+      <circle cx="54" cy="47" r="2"/>
+      <circle cx="64" cy="46.5" r="2"/>
+      <circle cx="74" cy="47" r="2"/>
+    </g>
+  </g>
+
+  <!-- Light beam -->
+  <path
+          d="M38 50L90 50L105 105H23L38 50Z"
+          fill="url(#light)"
+  />
+
+  <!-- Light rays -->
+  <g stroke="#F044C0" stroke-width="3" stroke-linecap="round">
+    <path d="M27 58L20 55"/>
+    <path d="M101 58L108 55"/>
+    <path d="M31 67L23 67"/>
+    <path d="M97 67L105 67"/>
+  </g>
+
+  <!-- Plant stem -->
+  <path
+          d="M64 103C64 94 64 84 64 75"
+          stroke="#329B3A"
+          stroke-width="4"
+          stroke-linecap="round"
+  />
+
+  <!-- Left leaf -->
+  <path
+          d="M62 88C49 88 38 82 35 71C47 69 59 74 64 82C65 84 64 87 62 88Z"
+          fill="url(#leaf)"
+  />
+  <path
+          d="M39 73C47 77 55 80 62 84"
+          stroke="#C7F66A"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          opacity=".8"
+  />
+
+  <!-- Right leaf -->
+  <path
+          d="M66 84C70 72 81 66 93 68C91 80 82 88 68 89C66 89 65 87 66 84Z"
+          fill="url(#leaf)"
+  />
+  <path
+          d="M89 70C80 75 74 80 67 86"
+          stroke="#C7F66A"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          opacity=".8"
+  />
+
+  <!-- Top leaf -->
+  <path
+          d="M64 78C57 70 58 60 64 54C71 61 71 70 64 78Z"
+          fill="#72D92D"
+  />
+  <path
+          d="M64 75V59"
+          stroke="#C7F66A"
+          stroke-width="1.5"
+          stroke-linecap="round"
+  />
+
+  <!-- Pot -->
+  <g filter="url(#shadow)">
+    <path
+            d="M42 99H86L82 116C81.5 118 79.5 119 77 119H51C48.5 119 46.5 118 46 116L42 99Z"
+            fill="#FFF8FA"
+    />
+    <ellipse cx="64" cy="99" rx="22" ry="6" fill="#F3E7EA"/>
+    <ellipse cx="64" cy="98.5" rx="17" ry="3.5" fill="#765044"/>
+  </g>
+
+  <!-- Pot highlight -->
+  <path
+          d="M49 104L51 113"
+          stroke="white"
+          stroke-width="3"
+          stroke-linecap="round"
+          opacity=".8"
+  />
 </svg>

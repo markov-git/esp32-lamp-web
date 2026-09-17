@@ -222,3 +222,11 @@ button {
     display: flex;
     gap: 12px;
 }
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt22 {
+    margin-top: 22px;
+}
