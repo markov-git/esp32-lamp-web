@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import type { IEsp32State, ILampState } from '../types/esp32.ts';
+import type { ILampState } from '../types/esp32.ts';
 import { setChannel } from '../api/esp32.ts';
+import { useAppContext } from '../Context.tsx';
 
-interface IProps extends ILampState {
-	onChangeState: (state: IEsp32State) => void;
-}
+type IProps = ILampState
 
 export function LampInfo(lampState: IProps) {
+	const ctx = useAppContext()
+
 	const [red, setRed] = useState(lampState.red || 0);
 	const [saving, setSaving] = useState(false);
 
@@ -15,7 +16,7 @@ export function LampInfo(lampState: IProps) {
 
 		try {
 			const newState = await setChannel(1, 'red', red);
-			lampState.onChangeState(newState);
+			ctx?.changeState(newState);
 		} catch (error) {
 			console.error(error)
 		} finally {

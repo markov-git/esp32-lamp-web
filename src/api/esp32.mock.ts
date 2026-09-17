@@ -2,6 +2,7 @@ import type { IEsp32State, TLampChannel } from '../types/esp32.ts';
 
 
 const mockState: IEsp32State = {
+	server: null,
 	lamps: [
 		{id: 1, red: 0, blue: 0},
 		{id: 2, red: 0, blue: 0},

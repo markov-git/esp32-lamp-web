@@ -1,5 +1,8 @@
 
 export interface IEsp32State {
+	// todo ip ...
+	server: null;
+
 	lamps: ILampState[];
 }
 
