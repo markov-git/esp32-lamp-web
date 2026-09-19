@@ -20,14 +20,3 @@
 	flex-direction: column;
 	flex: 1;
 }
-
-.lamp-card-toggle {
-	align-self: center;
-}
-
-.lamp-card-body {
-	margin-top: 16px;
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-}

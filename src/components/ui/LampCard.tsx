@@ -3,7 +3,7 @@ import './LampCard.css'
 import { setChannel } from '../../api/esp32.ts';
 import { useState } from 'react';
 import { useAppContext } from '../../Context.tsx';
-import { Card, Slider, Switch, Text, Progress } from '@mantine/core'
+import { Card, Slider, Switch, Text, Progress, Stack } from '@mantine/core';
 
 interface IProps {
 	value: ILampState | undefined;
@@ -51,52 +51,56 @@ export const LampCard = (props: IProps) => {
 		const value = props.value?.[channel];
 
 		return (
-			<>
+			<Stack gap="xs">
 				<div className={"lamp-card-header" + (className || '')}>
 					<Text fw={500}>{captionByChannel[channel]}</Text>
 
 					<Text fw={500}>{`${value ?? '-'} %`}</Text>
 				</div>
 
-				<Progress
-					value={value ?? 0}
-					color={channel}
-					size="xl"
-					transitionDuration={500}
-				/>
-				<Slider
-					value={value ?? 0}
-					onChange={v => changeChannelValue(channel, v)}
-					color={channel}
-				/>
-			</>
+				<Stack>
+					<Progress
+						value={value ?? 0}
+						color={channel}
+						size="xl"
+						transitionDuration={500}
+					/>
+					<Slider
+						value={value ?? 0}
+						onChange={v => changeChannelValue(channel, v)}
+						color={channel}
+						disabled={processing}
+					/>
+				</Stack>
+			</Stack>
 		)
 	}
 
 	return (
 		<Card withBorder style={{flex: 1}}>
-			<div className="lamp-card-header">
-				<div className="lamp-card-icon">
-					<img src="/lamp.svg" alt=""/>
-				</div>
+			<Stack>
+				<div className="lamp-card-header">
+					<div className="lamp-card-icon">
+						<img src="/lamp.svg" alt=""/>
+					</div>
 
-				<div className="lamp-card-caption">
-					<Text fw={500} size="lg">{`Лампа ${props.value?.id || '-'}`}</Text>
-				</div>
+					<div className="lamp-card-caption">
+						<Text fw={500} size="lg">{`Лампа ${props.value?.id || '-'}`}</Text>
+					</div>
 
-				<div className="lamp-card-toggle">
 					<Switch
 						checked={someChannelEnabled}
 						onChange={toggleLamp}
 						color="green"
+						disabled={processing}
 					/>
 				</div>
-			</div>
 
-			<div className="lamp-card-body">
-				{renderChannelControls('red')}
-				{renderChannelControls('blue', ' mt22')}
-			</div>
+				<Stack gap="xl">
+					{renderChannelControls('red')}
+					{renderChannelControls('blue', ' mt22')}
+				</Stack>
+			</Stack>
 		</Card>
 	)
 }
