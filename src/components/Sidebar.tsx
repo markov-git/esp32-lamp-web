@@ -1,5 +1,5 @@
-import * as React from 'react';
 import type { TAppTabId } from '../types/app.ts';
+import { Button, Stack, Text } from '@mantine/core';
 
 interface IProps {
 	activeTab: TAppTabId;
@@ -9,14 +9,14 @@ interface IProps {
 
 export const Sidebar = (props: IProps) => {
 
-	const renderTab = (tab: TAppTabId, caption: React.ReactElement) => {
-		let className = 'nav-item';
-		if (tab === props.activeTab) {
-			className += ' active';
-		}
+	const renderTab = (tab: TAppTabId, caption: string) => {
 		return (
-			<button className={ className } data-page={ tab }
-					onClick={ () => props.onChangeActiveTab(tab) }>{ caption }</button>
+			<Button
+				fullWidth
+				size="md"
+				variant={tab === props.activeTab ? 'filled' : 'outline'}
+				onClick={ () => props.onChangeActiveTab(tab) }
+			>{caption}</Button>
 		);
 	};
 
@@ -25,17 +25,17 @@ export const Sidebar = (props: IProps) => {
 			<div className="brand">
 				<div className="brand-mark">✦</div>
 
-				<div>
-					<strong>ESP32 Grow</strong>
-					<span>Управление растениями</span>
-				</div>
+				<Stack gap="xs">
+					<Text>ESP32 Grow</Text>
+					<Text size="xs">Управление растениями</Text>
+				</Stack>
 			</div>
 
-			<nav className="nav" aria-label="Навигация">
-				{ renderTab('dashboard', <>⌂ <span>Панель</span></>) }
-				{ renderTab('schedule', <>◷ <span>Расписание</span></>) }
-				{ renderTab('settings', <>⚙ <span>Настройки</span></>) }
-			</nav>
+			<Stack>
+				{ renderTab('dashboard', 'Панель') }
+				{ renderTab('schedule', 'Расписание') }
+				{ renderTab('settings', 'Настройки') }
+			</Stack>
 
 			<div className="connection-card">
 				<div className="status-dot"></div>

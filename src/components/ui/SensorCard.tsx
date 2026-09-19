@@ -1,4 +1,5 @@
 import './SensorCard.css';
+import { Card } from '@mantine/core';
 
 interface IProps {
 	caption: string;
@@ -10,7 +11,7 @@ interface IProps {
 export const SensorCard = (props: IProps) => {
 
 	return (
-		<div className="indicator-card">
+		<Card withBorder>
 			<div className="indicator-card-container">
 				<div className="indicator-card-icon">
 					<img src={props.iconPath} alt=""/>
@@ -26,6 +27,6 @@ export const SensorCard = (props: IProps) => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</Card>
 	)
 }

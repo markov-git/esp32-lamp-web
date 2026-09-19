@@ -1,11 +1,9 @@
 import type { ILampState, TLampChannel } from '../../types/esp32.ts';
 import './LampCard.css'
-import { Toggle } from './Toggle.tsx';
-import { Range } from './Range.tsx';
-import { ProgressBar } from './ProgressBar.tsx';
 import { setChannel } from '../../api/esp32.ts';
 import { useState } from 'react';
 import { useAppContext } from '../../Context.tsx';
+import { Card, Slider, Switch, Text, Progress } from '@mantine/core'
 
 interface IProps {
 	value: ILampState | undefined;
@@ -55,36 +53,43 @@ export const LampCard = (props: IProps) => {
 		return (
 			<>
 				<div className={"lamp-card-header" + (className || '')}>
-					<div className="lamp-card-label">
-						{captionByChannel[channel]}
-					</div>
+					<Text fw={500}>{captionByChannel[channel]}</Text>
 
-					<div className="lamp-card-label">
-						{`${value ?? '-'} %`}
-					</div>
+					<Text fw={500}>{`${value ?? '-'} %`}</Text>
 				</div>
 
-				<ProgressBar value={value ?? 0} mode={channel}/>
-				<Range value={value ?? 0} onChange={v => changeChannelValue(channel, v)} mode={channel}/>
+				<Progress
+					value={value ?? 0}
+					color={channel}
+					size="xl"
+					transitionDuration={500}
+				/>
+				<Slider
+					value={value ?? 0}
+					onChange={v => changeChannelValue(channel, v)}
+					color={channel}
+				/>
 			</>
 		)
 	}
 
 	return (
-		<div className="lamp-card">
+		<Card withBorder style={{flex: 1}}>
 			<div className="lamp-card-header">
 				<div className="lamp-card-icon">
 					<img src="/lamp.svg" alt=""/>
 				</div>
 
 				<div className="lamp-card-caption">
-					<div className="lamp-card-title">
-						{`Лампа ${props.value?.id || '-'}`}
-					</div>
+					<Text fw={500} size="lg">{`Лампа ${props.value?.id || '-'}`}</Text>
 				</div>
 
 				<div className="lamp-card-toggle">
-					<Toggle value={someChannelEnabled} onChange={toggleLamp}/>
+					<Switch
+						checked={someChannelEnabled}
+						onChange={toggleLamp}
+						color="green"
+					/>
 				</div>
 			</div>
 
@@ -92,6 +97,6 @@ export const LampCard = (props: IProps) => {
 				{renderChannelControls('red')}
 				{renderChannelControls('blue', ' mt22')}
 			</div>
-		</div>
+		</Card>
 	)
 }

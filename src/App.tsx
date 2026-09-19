@@ -14,7 +14,7 @@ function App() {
 	const [ state, setState ] = useState<IEsp32State | undefined>(undefined);
 	const [ loading, setLoading ] = useState(true);
 	const [ error, setError ] = useState<string | null>(null);
-	const [ activeTab, setActiveTab ] = useState<TAppTabId>('schedule');
+	const [ activeTab, setActiveTab ] = useState<TAppTabId>('dashboard');
 
 	useEffect(() => {
 		getState()

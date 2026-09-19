@@ -1,4 +1,5 @@
 import { ColorSchemeToggle } from './ColorSchemeToggle.tsx';
+import { Stack, Text } from '@mantine/core';
 
 interface IProps {
 	title: string;
@@ -9,15 +10,13 @@ export const FormHead = (props: IProps) => {
 
 	return (
 		<header className="topbar">
-			<div>
-				<div className="eyebrow">ESP32 Plant Control</div>
-				<h1>{props.title}</h1>
-				<p>{props.subtitle}</p>
-			</div>
+			<Stack gap="xs">
+				<Text>ESP32 Plant Control</Text>
+				<Text size="lg" fw={700}>{props.title}</Text>
+				<Text>{props.subtitle}</Text>
+			</Stack>
 
-			<div className="top-actions">
-				<ColorSchemeToggle/>
-			</div>
+			<ColorSchemeToggle/>
 		</header>
 	)
 }

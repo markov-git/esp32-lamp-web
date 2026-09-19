@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { FormHead } from '../ui/FormHead.tsx';
 import { SensorCard } from '../ui/SensorCard.tsx';
-import { Card } from '../ui/Card.tsx';
 import { useAppContext } from '../../Context.tsx';
 import { LampCard } from '../ui/LampCard.tsx';
 
+import { Group, SimpleGrid, Stack, Title } from '@mantine/core';
 
 export const Dashboard: React.ComponentType = () => {
 	const ctx = useAppContext();
@@ -16,7 +16,7 @@ export const Dashboard: React.ComponentType = () => {
 				subtitle="Текущее состояние системы"
 			/>
 
-			<div className="sensor-cards-row">
+			<Group>
 				<SensorCard
 					caption="Температура воздуха"
 					value="24.6 °C"
@@ -40,13 +40,17 @@ export const Dashboard: React.ComponentType = () => {
 					value="79 %"
 					iconPath="/flower.svg"
 				/>
-			</div>
+			</Group>
 
-			<Card caption="Управление лампами">
-				<LampCard value={ctx?.state.lamps[0]}/>
-				<LampCard value={ctx?.state.lamps[1]}/>
-				<LampCard value={ctx?.state.lamps[2]}/>
-			</Card>
+			<Stack gap="md">
+				<Title order={2}>Управление лампами</Title>
+
+				<SimpleGrid cols={3}>
+					<LampCard value={ctx?.state.lamps[0]}/>
+					<LampCard value={ctx?.state.lamps[1]}/>
+					<LampCard value={ctx?.state.lamps[2]}/>
+				</SimpleGrid>
+			</Stack>
 		</div>
 	);
 };
