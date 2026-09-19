@@ -3,15 +3,18 @@ import { getState } from './api/esp32.ts';
 import type { IEsp32State } from './types/esp32.ts';
 import { AppContextProvider } from './Context.tsx';
 import './App.css';
+import "@mantine/core/styles.css";
 import { Sidebar } from './components/Sidebar.tsx';
 import { ControlPage } from './components/ControlPage.tsx';
 import type { TAppTabId } from './types/app.ts';
+import { MantineProvider } from "@mantine/core";
+import { theme } from "./theme";
 
 function App() {
 	const [ state, setState ] = useState<IEsp32State | undefined>(undefined);
 	const [ loading, setLoading ] = useState(true);
 	const [ error, setError ] = useState<string | null>(null);
-	const [ activeTab, setActiveTab ] = useState<TAppTabId>('dashboard');
+	const [ activeTab, setActiveTab ] = useState<TAppTabId>('schedule');
 
 	useEffect(() => {
 		getState()
@@ -33,15 +36,17 @@ function App() {
 	}
 
 	return (
-		<AppContextProvider context={{
-			state,
-			changeState: setState,
-		}}>
-			<div className="app-shell">
-				<Sidebar activeTab={activeTab} onChangeActiveTab={setActiveTab}/>
-				<ControlPage tab={activeTab}/>
-			</div>
-		</AppContextProvider>
+		<MantineProvider theme={theme}>
+			<AppContextProvider context={{
+				state,
+				changeState: setState,
+			}}>
+				<div className="app-shell">
+					<Sidebar activeTab={activeTab} onChangeActiveTab={setActiveTab}/>
+					<ControlPage tab={activeTab}/>
+				</div>
+			</AppContextProvider>
+		</MantineProvider>
 	);
 }
 

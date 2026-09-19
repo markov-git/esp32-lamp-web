@@ -1,3 +1,4 @@
+import { ColorSchemeToggle } from './ColorSchemeToggle.tsx';
 
 interface IProps {
 	title: string;
@@ -15,7 +16,7 @@ export const FormHead = (props: IProps) => {
 			</div>
 
 			<div className="top-actions">
-				<button className="btn btn-danger">↻ Перезапустить ESP32</button>
+				<ColorSchemeToggle/>
 			</div>
 		</header>
 	)

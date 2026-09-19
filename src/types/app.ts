@@ -1,2 +1,2 @@
 
-export type TAppTabId = 'dashboard' | 'settings';
+export type TAppTabId = 'dashboard' | 'schedule' | 'settings';

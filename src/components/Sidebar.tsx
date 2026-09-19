@@ -33,6 +33,7 @@ export const Sidebar = (props: IProps) => {
 
 			<nav className="nav" aria-label="Навигация">
 				{ renderTab('dashboard', <>⌂ <span>Панель</span></>) }
+				{ renderTab('schedule', <>◷ <span>Расписание</span></>) }
 				{ renderTab('settings', <>⚙ <span>Настройки</span></>) }
 			</nav>
 
