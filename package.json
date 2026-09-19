@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "rm -rf dist-gzip && mkdir dist-gzip && node scripts/gzip.mjs && rm -rf ../PlantLamp/data && cp -r distGzip/ ../PlantLamp/data"
+    "deploy": "rm -rf dist-gzip && mkdir dist-gzip && node scripts/gzip.mjs && rm -rf ../PlantLamp/data && cp -r dist-gzip/ ../PlantLamp/data"
   },
   "dependencies": {
     "react": "^19.2.8",
