@@ -1,4 +1,4 @@
-import type { IEsp32State, TLampChannel } from '../types/esp32.ts';
+import type { IEsp32State, IEsp32SystemInfo, TLampChannel } from '../types/esp32.ts';
 
 
 const mockState: IEsp32State = {
@@ -23,4 +23,28 @@ export function setMockChannel(lampId: number, channel: TLampChannel, value: num
 	lamp[channel] = value;
 
 	return getMockState();
+}
+
+export function getMockSystem() {
+	return {
+		"chipModel": "ESP32-D0WD-V3",
+		"chipRevision": 3,
+		"cpuCores": 2,
+		"cpuFrequencyMhz": 240,
+		"uptimeSeconds": 18,
+		"freeHeap": 241920,
+		"totalHeap": 326852,
+		"minimumFreeHeap": 225920,
+		"flashSize": 4194304,
+		"sketchSize": 867344,
+		"freeSketchSpace": 1310720,
+		"filesystemTotal": 1441792,
+		"filesystemUsed": 180224,
+		"ip": "192.168.31.83",
+		"gateway": "192.168.31.1",
+		"subnet": "255.255.255.0",
+		"mac": "00:70:07:A3:CC:E8",
+		"wifiRssi": -64,
+		"chipTemperature": 39.44444
+	} satisfies IEsp32SystemInfo;
 }

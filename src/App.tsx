@@ -7,7 +7,7 @@ import "@mantine/core/styles.css";
 import { Sidebar } from './components/Sidebar.tsx';
 import { ControlPage } from './components/ControlPage.tsx';
 import type { TAppTabId } from './types/app.ts';
-import { MantineProvider } from "@mantine/core";
+import { Center, Loader, MantineProvider } from '@mantine/core';
 import { theme } from "./theme";
 
 function App() {
@@ -24,7 +24,13 @@ function App() {
 	}, []);
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return (
+			<MantineProvider theme={theme}>
+				<Center h="100vh">
+					<Loader size="xl"/>
+				</Center>
+			</MantineProvider>
+		);
 	}
 
 	if (!state) {
