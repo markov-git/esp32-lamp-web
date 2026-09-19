@@ -73,7 +73,10 @@ export const Settings = () => {
 								<Table.Th w={160}>Время работы</Table.Th>
 								<Table.Td>{formatDuration(state.uptimeSeconds)}</Table.Td>
 							</Table.Tr>
-
+							<Table.Tr>
+								<Table.Th w={160}>Температура чипа</Table.Th>
+								<Table.Td>{state.chipTemperature.toFixed(0)} °C</Table.Td>
+							</Table.Tr>
 						</Table.Tbody>
 					</Table>
 				</Card>
