@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getState } from './api/esp32.ts';
-import type { IEsp32State } from './types/esp32.ts';
+import { getSensorsInfo, getState } from './api/esp32.ts';
+import type { IEsp32Sensors, IEsp32State } from './types/esp32.ts';
 import { AppContextProvider } from './Context.tsx';
 import './App.css';
 import "@mantine/core/styles.css";
@@ -12,6 +12,7 @@ import { theme } from "./theme";
 
 function App() {
 	const [ state, setState ] = useState<IEsp32State | undefined>(undefined);
+	const [ sensors, setSensors ] = useState<IEsp32Sensors | undefined>(undefined);
 	const [ loading, setLoading ] = useState(true);
 	const [ error, setError ] = useState<string | null>(null);
 	const [ activeTab, setActiveTab ] = useState<TAppTabId>('dashboard');
@@ -19,6 +20,10 @@ function App() {
 	useEffect(() => {
 		getState()
 			.then(setState)
+			.catch(() => setError('Failed to connect to ESP32'))
+			.finally(() => setLoading(false));
+		getSensorsInfo()
+			.then(setSensors)
 			.catch(() => setError('Failed to connect to ESP32'))
 			.finally(() => setLoading(false));
 	}, []);
@@ -45,6 +50,7 @@ function App() {
 		<MantineProvider theme={theme}>
 			<AppContextProvider context={{
 				state,
+				sensors,
 				changeState: setState,
 			}}>
 				<div className="app-shell">

@@ -1,9 +1,10 @@
-import type { IEsp32State } from './types/esp32.ts';
+import type { IEsp32Sensors, IEsp32State } from './types/esp32.ts';
 import * as React from 'react';
 import { useContext } from 'react';
 
 export interface IAppContext {
 	state: IEsp32State;
+	sensors: IEsp32Sensors | undefined;
 
 	changeState: (state: IEsp32State) => void;
 }

@@ -1,5 +1,5 @@
-import type { IEsp32State, IEsp32SystemInfo, TLampChannel } from '../types/esp32.ts';
-import { getMockState, getMockSystem, setMockChannel } from './esp32.mock.ts';
+import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, TLampChannel } from '../types/esp32.ts';
+import { getMockSensors, getMockState, getMockSystem, setMockChannel } from './esp32.mock.ts';
 
 const useMockApi = import.meta.env.VITE_MOCK_API === 'true'
 
@@ -30,6 +30,17 @@ export async function setChannel(lampId: number, channel: TLampChannel, value: n
 	return response.json()
 }
 
+export async function getSensorsInfo(): Promise<IEsp32Sensors> {
+	if (useMockApi) { return getMockSensors() }
+
+	const response = await fetch('/api/sensors')
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
+}
 
 export async function getSystemInfo(): Promise<IEsp32SystemInfo> {
 	if (useMockApi) { return getMockSystem() }

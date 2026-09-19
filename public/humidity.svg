@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1"
+     id="Layer_1"
+     xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 512 512"
+     xml:space="preserve">
+
+    <!-- Background -->
+    <circle style="fill:#00DFC1;" cx="256" cy="256" r="256"/>
+
+    <!-- Background shadow -->
+    <path style="fill:#00B5A3;" d="M510.8,279.4L353.2,121.8
+        c-27.1-28.2-65.2-45.8-97.2-45.8
+        c-83.7,0-151.5,67.8-151.5,151.5
+        c0,41.5,16.7,79.1,43.8,106.5
+        l123.2,123.2C394.3,503.4,499.3,405.5,510.8,279.4z"/>
+
+    <!-- Main water drop -->
+    <path style="fill:#FFFFFF;" d="M256,78
+        C256,78 151,199 151,293
+        c0,62.7 47,113.5 105,113.5
+        s105-50.8 105-113.5
+        C361,199 256,78 256,78z"/>
+
+    <!-- Drop shadow -->
+    <path style="fill:#D8D8DA;" d="M256,78
+        c0,0 0,0 0,0
+        v328.5
+        c58-0.1 105-50.9 105-113.5
+        C361,199 256,78 256,78z"/>
+
+    <!-- Inner water -->
+    <path style="fill:#00DFC1;" d="M256,159
+        C256,159 185,244 185,301
+        c0,42.5 31.8,76.5 71,76.5
+        s71-34 71-76.5
+        C327,244 256,159 256,159z"/>
+
+    <!-- Inner water shadow -->
+    <path style="fill:#00B5A3;" d="M256,159
+        v218.5
+        c39.2,0 71-34 71-76.5
+        C327,244 256,159 256,159z"/>
+
+    <!-- Highlight -->
+    <path style="fill:#FFFFFF;" d="M224,211
+        c-16.5,22.1-30,45.5-34.5,65.5
+        c-2.4,10.6 5.7,20.5 16.5,20.5
+        c8.1,0 15-5.8 16.7-13.7
+        c3.6-16.3 13.8-34.5 25.3-50.3
+        C255.8,222.8 237.8,192.5 224,211z"/>
+
+    <!-- Humidity waves -->
+    <g style="fill:none;
+              stroke:#29292B;
+              stroke-width:10;
+              stroke-linecap:round;">
+
+        <path d="M205,328
+                 C220,342 237,349 256,349
+                 C275,349 292,342 307,328"/>
+
+        <path d="M218,306
+                 C229,315 242,320 256,320
+                 C270,320 283,315 294,306"/>
+    </g>
+
+    <!-- Humidity percentage -->
+    <text x="256"
+          y="438"
+          text-anchor="middle"
+          style="font-family:Arial,sans-serif;
+                 font-size:27px;
+                 font-weight:bold;
+                 fill:#29292B;">
+        % RH
+    </text>
+
+</svg>

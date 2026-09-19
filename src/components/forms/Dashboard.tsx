@@ -4,7 +4,8 @@ import { SensorCard } from '../ui/SensorCard.tsx';
 import { useAppContext } from '../../Context.tsx';
 import { LampCard } from '../ui/LampCard.tsx';
 
-import { Group, SimpleGrid, Stack, Title } from '@mantine/core';
+import { SimpleGrid, Stack, Title } from '@mantine/core';
+import { formatHumidity, formatPressure, formatTemperature } from '../../utils/sensors.ts';
 
 export const Dashboard: React.ComponentType = () => {
 	const ctx = useAppContext();
@@ -16,31 +17,47 @@ export const Dashboard: React.ComponentType = () => {
 				subtitle="Текущее состояние системы"
 			/>
 
-			<Group>
+			<SimpleGrid cols={3}>
 				<SensorCard
 					caption="Температура воздуха"
-					value="24.6 °C"
+					value={formatTemperature(ctx?.sensors?.bme280.temperature)}
 					iconPath="/thermometer.svg"
+					loading={!ctx?.sensors}
+				/>
+				<SensorCard
+					caption="Давление"
+					value={formatPressure(ctx?.sensors?.bme280.pressure)}
+					iconPath="/pressure.svg"
+					loading={!ctx?.sensors}
+				/>
+				<SensorCard
+					caption="Влажность"
+					value={formatHumidity(ctx?.sensors?.bme280.humidity)}
+					iconPath="/humidity.svg"
+					loading={!ctx?.sensors}
 				/>
 
 				<SensorCard
 					caption="Влажность почвы 1"
 					value="68 %"
 					iconPath="/flower.svg"
+					loading
 				/>
 
 				<SensorCard
 					caption="Влажность почвы 2"
 					value="42 %"
 					iconPath="/flower.svg"
+					loading
 				/>
 
 				<SensorCard
 					caption="Влажность почвы 3"
 					value="79 %"
 					iconPath="/flower.svg"
+					loading
 				/>
-			</Group>
+			</SimpleGrid>
 
 			<Stack gap="md">
 				<Title order={2}>Управление лампами</Title>

@@ -1,4 +1,4 @@
-import type { IEsp32State, IEsp32SystemInfo, TLampChannel } from '../types/esp32.ts';
+import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, TLampChannel } from '../types/esp32.ts';
 
 
 const mockState: IEsp32State = {
@@ -23,6 +23,16 @@ export function setMockChannel(lampId: number, channel: TLampChannel, value: num
 	lamp[channel] = value;
 
 	return getMockState();
+}
+
+export function getMockSensors() {
+	return {
+		bme280: {
+			humidity: 67.20801,
+			pressure: 1003.595,
+			temperature: 21.46
+		},
+	} satisfies IEsp32Sensors;
 }
 
 export function getMockSystem() {

@@ -12,6 +12,14 @@ export interface ILampState extends Record<TLampChannel, number> {
 
 export type TLampChannel = 'red' | 'blue';
 
+export interface IEsp32Sensors {
+	bme280: {
+		humidity: number;
+		pressure: number;
+		temperature: number;
+	};
+}
+
 export interface IEsp32SystemInfo {
 	chipModel: string,
 	chipRevision: 3,

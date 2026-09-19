@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1"
+     id="Layer_1"
+     xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 512 512"
+     xml:space="preserve">
+
+    <!-- Background -->
+    <circle style="fill:#00DFC1;" cx="256" cy="256" r="256"/>
+
+    <!-- Background shadow -->
+    <path style="fill:#00B5A3;" d="M511.1,277.7L363.8,130.4
+        c-27.7-31.5-67.8-51.4-112.5-51.4
+        c-83.5,0-151.2,67.7-151.2,151.2
+        c0,45.3,20,86,51.9,113.8l123.9,123.9
+        C407.6,456.4,495.6,376.9,511.1,277.7z"/>
+
+    <!-- Gauge body -->
+    <circle style="fill:#FFFFFF;" cx="256" cy="256" r="151.2"/>
+
+    <!-- Gauge inner face -->
+    <circle style="fill:#D8D8DA;" cx="256" cy="256" r="132"/>
+
+    <circle style="fill:#FFFFFF;" cx="256" cy="256" r="119"/>
+
+    <!-- Gauge tick marks -->
+    <g style="fill:#29292B;">
+
+        <!-- top -->
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(0 256 256)"/>
+
+        <!-- upper right -->
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(30 256 256)"/>
+
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(60 256 256)"/>
+
+        <!-- right -->
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(90 256 256)"/>
+
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(120 256 256)"/>
+
+        <!-- lower right -->
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(150 256 256)"/>
+
+        <!-- bottom -->
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(180 256 256)"/>
+
+        <!-- lower left -->
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(210 256 256)"/>
+
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(240 256 256)"/>
+
+        <!-- left -->
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(270 256 256)"/>
+
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(300 256 256)"/>
+
+        <rect x="250.5" y="137" width="11" height="32"
+              transform="rotate(330 256 256)"/>
+    </g>
+
+    <!-- Pressure needle -->
+    <path style="fill:#FF3C62;" d="M250.5,263.5
+        L202,178
+        L264,256
+        Z"/>
+
+    <!-- Needle center -->
+    <circle style="fill:#FF0335;" cx="256" cy="256" r="22"/>
+
+    <circle style="fill:#FFFFFF;" cx="256" cy="256" r="8"/>
+
+    <!-- Pressure label -->
+    <text x="256"
+          y="330"
+          text-anchor="middle"
+          style="font-family:Arial,sans-serif;
+                 font-size:26px;
+                 font-weight:bold;
+                 fill:#29292B;">
+        mmHg
+    </text>
+
+</svg>
