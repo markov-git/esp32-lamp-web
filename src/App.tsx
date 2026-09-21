@@ -27,7 +27,7 @@ function App() {
 		const requestSensors = () => {
 			getSensorsInfo()
 				.then(setSensors)
-				.then(() => !connected && setConnected(true))
+				.then(() => setConnected(true))
 				.catch(() => {
 					console.error('Failed to connect to ESP32');
 					setConnected(false);
