@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
-import { getSystemInfo } from '../../api/esp32.ts';
+import { getSystemInfo, setTime } from '../../api/esp32.ts';
 import type { IEsp32SystemInfo } from '../../types/esp32.ts';
-import { Card, Center, Group, Loader, Progress, SimpleGrid, Table, Text, Tooltip } from '@mantine/core';
+import { Button, Card, Center, Group, Loader, Progress, SimpleGrid, Table, Text, Tooltip } from '@mantine/core';
 import { FormHead } from '../ui/FormHead.tsx';
-import { formatDuration } from '../../utils/dateTime.ts';
+import { formatDate, formatDuration } from '../../utils/dateTime.ts';
 import { formatBytes } from '../../utils/memory.ts';
+import { useAppContext } from '../../Context.tsx';
 
 export const Settings = () => {
 	const [ state, setState ] = useState<IEsp32SystemInfo | undefined>(undefined);
 	const [ loading, setLoading ] = useState(true);
+	const [ processing, setProcessing ] = useState(false);
 	const [ error, setError ] = useState<string | null>(null);
+
+	const ctx = useAppContext();
 
 	useEffect(() => {
 		getSystemInfo()
@@ -17,6 +21,24 @@ export const Settings = () => {
 			.catch(() => setError('Failed to connect to ESP32'))
 			.finally(() => setLoading(false));
 	}, []);
+
+	const handleSetCurrentTime = async () => {
+		if (processing || !ctx) return;
+		try {
+			setProcessing(true);
+
+			const newEspTime = await setTime(Date.now());
+
+			ctx.changeState({
+				...ctx.state,
+				time: newEspTime,
+			})
+		} catch (e) {
+			console.error(e);
+		} finally {
+			setProcessing(false);
+		}
+	}
 
 	if (loading) {
 		return (
@@ -76,6 +98,20 @@ export const Settings = () => {
 							<Table.Tr>
 								<Table.Th w={160}>Температура чипа</Table.Th>
 								<Table.Td>{state.chipTemperature.toFixed(0)} °C</Table.Td>
+							</Table.Tr>
+							<Table.Tr>
+								<Table.Th w={160}>Время</Table.Th>
+								<Table.Td>
+									<Group>
+										{formatDate(ctx?.state.time.unix)}
+										<Button
+											loading={processing}
+											variant="outline"
+											size="compact-sm"
+											onClick={handleSetCurrentTime}
+										>Установить текущее</Button>
+									</Group>
+								</Table.Td>
 							</Table.Tr>
 						</Table.Tbody>
 					</Table>

@@ -13,3 +13,20 @@ export function formatDuration(totalSeconds: number) {
 		`${String(seconds).padStart(2, '0')} сек.`,
 	].filter(Boolean).join(' ');
 }
+
+export function formatDate(value: number | undefined): string {
+	if (typeof value !== 'number') {
+		return '-';
+	}
+	const date = new Date(value);
+
+	return date.toLocaleString('ru-RU', {
+		day: '2-digit',
+		month: '2-digit',
+		year: '2-digit',
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit',
+		hour12: false,
+	}).replace(',', '');
+}

@@ -1,5 +1,5 @@
-import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, TLampChannel } from '../types/esp32.ts';
-import { getMockSensors, getMockState, getMockSystem, setMockChannel } from './esp32.mock.ts';
+import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, IEsp32Time, TLampChannel } from '../types/esp32.ts';
+import { getMockSensors, getMockState, getMockSystem, getMockTime, setMockChannel } from './esp32.mock.ts';
 
 const useMockApi = import.meta.env.VITE_MOCK_API === 'true'
 
@@ -46,6 +46,36 @@ export async function getSystemInfo(): Promise<IEsp32SystemInfo> {
 	if (useMockApi) { return getMockSystem() }
 
 	const response = await fetch('/api/system')
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
+}
+
+export async function getTime(): Promise<IEsp32Time> {
+	if (useMockApi) { return getMockTime() }
+
+	const response = await fetch('/api/time')
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
+}
+
+export async function setTime(timeStamp: number): Promise<IEsp32Time> {
+	if (useMockApi) { return getMockTime() }
+
+	const response = await fetch('/api/time', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({unix: timeStamp}),
+	})
 
 	if (!response.ok) {
 		throw new Error(`HTTP ${response.status}`)

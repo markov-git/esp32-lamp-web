@@ -1,13 +1,16 @@
-import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, TLampChannel } from '../types/esp32.ts';
+import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, IEsp32Time, TLampChannel } from '../types/esp32.ts';
 
 
 const mockState: IEsp32State = {
-	server: null,
 	lamps: [
 		{id: 1, red: 0, blue: 0},
 		{id: 2, red: 0, blue: 0},
 		{id: 3, red: 0, blue: 0}
-	]
+	],
+	time: {
+		unix: 1858709804,
+		lostPower: false,
+	}
 }
 
 export function getMockState() {
@@ -74,4 +77,11 @@ export function getMockSystem() {
 		"wifiRssi": -64,
 		"chipTemperature": 39.44444
 	} satisfies IEsp32SystemInfo;
+}
+
+export function getMockTime(): IEsp32Time {
+	return {
+		unix: Date.now(),
+		lostPower: true,
+	};
 }

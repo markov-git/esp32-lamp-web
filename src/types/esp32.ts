@@ -1,9 +1,12 @@
 
 export interface IEsp32State {
-	// todo ip ...
-	server: null;
-
 	lamps: ILampState[];
+	time: IEsp32Time;
+}
+
+export interface IEsp32Time {
+	unix: number;
+	lostPower: boolean;
 }
 
 export interface ILampState extends Record<TLampChannel, number> {

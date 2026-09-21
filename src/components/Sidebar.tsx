@@ -1,5 +1,7 @@
 import type { TAppTabId } from '../types/app.ts';
-import { Button, Stack, Text } from '@mantine/core';
+import { Alert, Button, Stack, Text } from '@mantine/core';
+import { useAppContext } from '../Context.tsx';
+import { formatDate } from '../utils/dateTime.ts';
 
 interface IProps {
 	activeTab: TAppTabId;
@@ -8,6 +10,7 @@ interface IProps {
 }
 
 export const Sidebar = (props: IProps) => {
+	const ctx = useAppContext();
 
 	const renderTab = (tab: TAppTabId, caption: string) => {
 		return (
@@ -22,29 +25,42 @@ export const Sidebar = (props: IProps) => {
 
 	return (
 		<aside className="sidebar">
-			<div className="brand">
-				<div className="brand-mark">✦</div>
+			<Stack justify="space-between" style={{flex: 1}}>
+				<Stack>
+					<div className="brand">
+						<div className="brand-mark">✦</div>
 
-				<Stack gap="xs">
-					<Text>ESP32 Grow</Text>
-					<Text size="xs">Управление растениями</Text>
+						<Stack gap="xs">
+							<Text>ESP32 Grow</Text>
+							<Text size="xs">Управление растениями</Text>
+						</Stack>
+					</div>
+
+					<Stack>
+						{ renderTab('dashboard', 'Панель') }
+						{ renderTab('schedule', 'Расписание') }
+						{ renderTab('settings', 'Настройки') }
+					</Stack>
 				</Stack>
-			</div>
 
-			<Stack>
-				{ renderTab('dashboard', 'Панель') }
-				{ renderTab('schedule', 'Расписание') }
-				{ renderTab('settings', 'Настройки') }
+				<Stack>
+					{ctx?.state.time.lostPower && (
+						<Alert variant="light" color="red" title="DS3231">
+							Module lost power!
+						</Alert>
+					)}
+
+					<div className="connection-card">
+						<div className="status-dot"></div>
+						<div>
+							<strong>ESP32 онлайн</strong>
+							<span id="last-update">{formatDate(ctx?.state.time.unix)}</span>
+						</div>
+					</div>
+				</Stack>
+
 			</Stack>
 
-			<div className="connection-card">
-				<div className="status-dot"></div>
-				<div>
-					<strong>ESP32 онлайн</strong>
-					<span id="esp-ip">todo</span>
-					<span id="last-update">Обновление: todo</span>
-				</div>
-			</div>
 		</aside>
 	);
 };
