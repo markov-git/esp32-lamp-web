@@ -18,6 +18,11 @@ export interface IEsp32Sensors {
 		pressure: number;
 		temperature: number;
 	};
+	soilMoisture: {
+		id: number;
+		raw: number;
+		percent: number;
+	}[];
 }
 
 export interface IEsp32SystemInfo {

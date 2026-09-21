@@ -22,41 +22,32 @@ export const Dashboard: React.ComponentType = () => {
 					caption="Температура воздуха"
 					value={formatTemperature(ctx?.sensors?.bme280.temperature)}
 					iconPath="/thermometer.svg"
-					loading={!ctx?.sensors}
+					loading={!ctx?.sensors?.bme280.temperature}
 				/>
 				<SensorCard
 					caption="Давление"
 					value={formatPressure(ctx?.sensors?.bme280.pressure)}
 					iconPath="/pressure.svg"
-					loading={!ctx?.sensors}
+					loading={!ctx?.sensors?.bme280.temperature}
 				/>
 				<SensorCard
 					caption="Влажность"
 					value={formatHumidity(ctx?.sensors?.bme280.humidity)}
 					iconPath="/humidity.svg"
-					loading={!ctx?.sensors}
+					loading={!ctx?.sensors?.bme280.temperature}
 				/>
 
-				<SensorCard
-					caption="Влажность почвы 1"
-					value="68 %"
-					iconPath="/flower.svg"
-					loading
-				/>
-
-				<SensorCard
-					caption="Влажность почвы 2"
-					value="42 %"
-					iconPath="/flower.svg"
-					loading
-				/>
-
-				<SensorCard
-					caption="Влажность почвы 3"
-					value="79 %"
-					iconPath="/flower.svg"
-					loading
-				/>
+				{new Array(3).fill(0).map((_, i) => {
+					const soilMoisture = ctx?.sensors?.soilMoisture[i];
+					return (
+						<SensorCard
+							caption={`Влажность почвы ${i + 1}`}
+							value={`${soilMoisture?.percent || 0}%`}
+							iconPath="/flower.svg"
+							loading={!soilMoisture}
+						/>
+					);
+				})}
 			</SimpleGrid>
 
 			<Stack gap="md">

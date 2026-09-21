@@ -28,10 +28,27 @@ export function setMockChannel(lampId: number, channel: TLampChannel, value: num
 export function getMockSensors() {
 	return {
 		bme280: {
-			humidity: 67.20801,
-			pressure: 1003.595,
-			temperature: 21.46
+			temperature: 22.09,
+			humidity: 68.4541,
+			pressure: 995.2168
 		},
+		soilMoisture: [
+			{
+				id: 0,
+				raw: 2649,
+				percent: 0
+			},
+			{
+				id: 1,
+				raw: 25,
+				percent: 100
+			},
+			{
+				id: 2,
+				raw: 7,
+				percent: 100
+			}
+		]
 	} satisfies IEsp32Sensors;
 }
 

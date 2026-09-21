@@ -5,7 +5,7 @@ interface IProps {
 	caption: string;
 	value: string;
 
-	loading: boolean;
+	loading?: boolean;
 
 	iconPath: string;
 }
