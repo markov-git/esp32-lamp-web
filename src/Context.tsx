@@ -7,7 +7,6 @@ export interface IAppContext {
 	sensors: IEsp32Sensors | undefined;
 
 	changeState: (state: IEsp32State) => void;
-	updateState: () => void;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

@@ -17,15 +17,11 @@ function App() {
 	const [ error, setError ] = useState<string | null>(null);
 	const [ activeTab, setActiveTab ] = useState<TAppTabId>('dashboard');
 
-	const updateState = () => {
+	useEffect(() => {
 		getState()
 			.then(setState)
 			.catch(() => setError('Failed to connect to ESP32'))
 			.finally(() => setLoading(false));
-	}
-
-	useEffect(() => {
-		updateState();
 
 		const requestSensors = () => {
 			getSensorsInfo()
@@ -63,7 +59,6 @@ function App() {
 				state,
 				sensors,
 				changeState: setState,
-				updateState,
 			}}>
 				<div className="app-shell">
 					<Sidebar activeTab={activeTab} onChangeActiveTab={setActiveTab}/>

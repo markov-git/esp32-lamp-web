@@ -66,15 +66,21 @@ export async function getTime(): Promise<IEsp32Time> {
 	return response.json()
 }
 
-export async function setTime(timeStampInSeconds: number): Promise<void> {
-	if (useMockApi) { return; }
+export async function setTime(timeStampInSeconds: number): Promise<IEsp32Time> {
+	if (useMockApi) { return getMockTime() }
 
-	await fetch('/api/time', {
+	const response = await fetch('/api/time', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({unix: timeStampInSeconds}),
-	});
+	})
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
 }
 
