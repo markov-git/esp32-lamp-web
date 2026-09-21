@@ -6,6 +6,7 @@ import { FormHead } from '../ui/FormHead.tsx';
 import { formatDate, formatDuration } from '../../utils/dateTime.ts';
 import { formatBytes } from '../../utils/memory.ts';
 import { useAppContext } from '../../Context.tsx';
+import { wait } from '../../utils/promise.ts';
 
 export const Settings = () => {
 	const [ state, setState ] = useState<IEsp32SystemInfo | undefined>(undefined);
@@ -27,12 +28,11 @@ export const Settings = () => {
 		try {
 			setProcessing(true);
 
-			const newEspTime = await setTime(Math.round(Date.now() / 1000));
+			await setTime(Math.round(Date.now() / 1000));
 
-			ctx.changeState({
-				...ctx.state,
-				time: newEspTime,
-			})
+			await wait(3_000);
+
+			ctx.updateState();
 		} catch (e) {
 			console.error(e);
 		} finally {
