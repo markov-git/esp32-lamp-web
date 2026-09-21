@@ -51,6 +51,15 @@
     margin-bottom: 5px
 }
 
+.connection-card._offline strong {
+    color: #d5325d;
+}
+
+.connection-card._offline .status-dot {
+    background: #d53250;
+    box-shadow: 0 0 0 4px #351820
+}
+
 .connection-card span {
     display: block;
     color: #82929d;

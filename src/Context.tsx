@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useContext } from 'react';
 
 export interface IAppContext {
+	connected: boolean;
 	state: IEsp32State;
 	sensors: IEsp32Sensors | undefined;
 

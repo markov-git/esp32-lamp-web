@@ -50,10 +50,10 @@ export const Sidebar = (props: IProps) => {
 						</Alert>
 					)}
 
-					<div className="connection-card">
-						<div className="status-dot"></div>
+					<div className={ctx?.connected ? "connection-card" : "connection-card _offline"}>
+						<div className={"status-dot"}/>
 						<div>
-							<strong>ESP32 онлайн</strong>
+							<strong>{ctx?.connected ? 'ESP32 онлайн' : 'ESP32 оффлайн'}</strong>
 							<span id="last-update">{formatDate(ctx?.state.time.unix)}</span>
 						</div>
 					</div>

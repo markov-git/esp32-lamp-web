@@ -13,6 +13,7 @@ import { theme } from "./theme";
 function App() {
 	const [ state, setState ] = useState<IEsp32State | undefined>(undefined);
 	const [ sensors, setSensors ] = useState<IEsp32Sensors | undefined>(undefined);
+	const [ connected, setConnected ] = useState(true);
 	const [ loading, setLoading ] = useState(true);
 	const [ error, setError ] = useState<string | null>(null);
 	const [ activeTab, setActiveTab ] = useState<TAppTabId>('dashboard');
@@ -26,7 +27,11 @@ function App() {
 		const requestSensors = () => {
 			getSensorsInfo()
 				.then(setSensors)
-				.catch(() => setError('Failed to connect to ESP32'))
+				.then(() => !connected && setConnected(true))
+				.catch(() => {
+					console.error('Failed to connect to ESP32');
+					setConnected(false);
+				})
 				.finally(() => {
 					setLoading(false);
 					setTimeout(requestSensors, 3_000);
@@ -56,6 +61,7 @@ function App() {
 	return (
 		<MantineProvider theme={theme}>
 			<AppContextProvider context={{
+				connected,
 				state,
 				sensors,
 				changeState: setState,
