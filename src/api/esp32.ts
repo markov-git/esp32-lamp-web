@@ -66,7 +66,7 @@ export async function getTime(): Promise<IEsp32Time> {
 	return response.json()
 }
 
-export async function setTime(timeStamp: number): Promise<IEsp32Time> {
+export async function setTime(timeStampInSeconds: number): Promise<IEsp32Time> {
 	if (useMockApi) { return getMockTime() }
 
 	const response = await fetch('/api/time', {
@@ -74,7 +74,7 @@ export async function setTime(timeStamp: number): Promise<IEsp32Time> {
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({unix: timeStamp}),
+		body: JSON.stringify({unix: timeStampInSeconds}),
 	})
 
 	if (!response.ok) {

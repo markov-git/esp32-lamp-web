@@ -14,11 +14,11 @@ export function formatDuration(totalSeconds: number) {
 	].filter(Boolean).join(' ');
 }
 
-export function formatDate(value: number | undefined): string {
-	if (typeof value !== 'number') {
+export function formatDate(valueInSeconds: number | undefined): string {
+	if (typeof valueInSeconds !== 'number') {
 		return '-';
 	}
-	const date = new Date(value);
+	const date = new Date(valueInSeconds * 1000);
 
 	return date.toLocaleString('ru-RU', {
 		day: '2-digit',

@@ -27,7 +27,7 @@ export const Settings = () => {
 		try {
 			setProcessing(true);
 
-			const newEspTime = await setTime(Date.now());
+			const newEspTime = await setTime(Math.round(Date.now() / 1000));
 
 			ctx.changeState({
 				...ctx.state,
