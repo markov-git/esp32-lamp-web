@@ -22,10 +22,17 @@ function App() {
 			.then(setState)
 			.catch(() => setError('Failed to connect to ESP32'))
 			.finally(() => setLoading(false));
-		getSensorsInfo()
-			.then(setSensors)
-			.catch(() => setError('Failed to connect to ESP32'))
-			.finally(() => setLoading(false));
+
+		const requestSensors = () => {
+			getSensorsInfo()
+				.then(setSensors)
+				.catch(() => setError('Failed to connect to ESP32'))
+				.finally(() => {
+					setLoading(false);
+					setTimeout(requestSensors, 3_000);
+				});
+		}
+		requestSensors();
 	}, []);
 
 	if (loading) {
