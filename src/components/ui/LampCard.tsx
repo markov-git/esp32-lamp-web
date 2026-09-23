@@ -1,6 +1,6 @@
 import type { ILampState, TLampChannel } from '../../types/esp32.ts';
 import './LampCard.css'
-import { setChannel } from '../../api/esp32.ts';
+import { setManualChannel } from '../../api/esp32.ts';
 import { useState } from 'react';
 import { useAppContext } from '../../Context.tsx';
 import { Card, Slider, Switch, Text, Progress, Stack } from '@mantine/core';
@@ -19,7 +19,7 @@ export const LampCard = (props: IProps) => {
 		if (!props.value || processing) return;
 		try {
 			setProcessing(true);
-			const state = await setChannel(props.value.id, channel, value);
+			const state = await setManualChannel(props.value.id, channel, value);
 			ctx?.changeState(state);
 		} catch (e) {
 			console.error(e);
@@ -33,8 +33,8 @@ export const LampCard = (props: IProps) => {
 		try {
 			setProcessing(true);
 			const newValue = someChannelEnabled ? 0 : 100;
-			await setChannel(props.value.id, 'red', newValue);
-			const state = await setChannel(props.value.id, 'blue', newValue);
+			await setManualChannel(props.value.id, 'red', newValue);
+			const state = await setManualChannel(props.value.id, 'blue', newValue);
 			ctx?.changeState(state);
 		} catch (e) {
 			console.error(e);

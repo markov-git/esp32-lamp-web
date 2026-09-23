@@ -1,5 +1,12 @@
 import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, IEsp32Time, TLampChannel } from '../types/esp32.ts';
-import { getMockSensors, getMockState, getMockSystem, getMockTime, setMockChannel } from './esp32.mock.ts';
+import {
+	getMockSensors,
+	getMockState,
+	getMockSystem,
+	getMockTime,
+	setMockChannel,
+	setMockScheduleEnabled,
+} from './esp32.mock.ts';
 import { wait } from '../utils/promise.ts';
 
 const useMockApi = import.meta.env.VITE_MOCK_API === 'true'
@@ -16,16 +23,23 @@ export async function getState(): Promise<IEsp32State> {
 	return response.json()
 }
 
-export async function setChannel(lampId: number, channel: TLampChannel, value: number): Promise<IEsp32State> {
+export async function setManualChannel(lampId: number, channel: TLampChannel, value: number): Promise<IEsp32State> {
 	if (useMockApi) {
 		await wait(3_000);
 		return setMockChannel(lampId, channel, value);
 	}
 
-	// /api/lamp/1/red?value=0
-	const response = await fetch(`/api/lamp/${lampId}/${channel}?value=${value}`, {
+	const response = await fetch('api/lighting/manual', {
 		method: 'POST',
-	})
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			lamp: lampId,
+			channel,
+			brightness: value,
+		}),
+	});
 
 	if (!response.ok) {
 		throw new Error(`HTTP ${response.status}`)
@@ -88,3 +102,26 @@ export async function setTime(timeStampInSeconds: number): Promise<IEsp32Time> {
 	return response.json()
 }
 
+export async function setScheduleEnabled(lampId: number, value: boolean): Promise<IEsp32State> {
+	if (useMockApi) {
+		await wait(3_000);
+		return setMockScheduleEnabled(lampId, value);
+	}
+
+	const response = await fetch('api/lighting/schedule', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			lamp: lampId,
+			enabled: value,
+		}),
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
+}

@@ -1,6 +1,5 @@
 import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, IEsp32Time, TLampChannel } from '../types/esp32.ts';
 
-
 const mockState: IEsp32State = {
 	lamps: [
 		{
@@ -58,6 +57,17 @@ export function setMockChannel(lampId: number, channel: TLampChannel, value: num
 
 	lamp.manual[channel] = value;
 	lamp.current[channel] = value;
+
+	return getMockState();
+}
+
+export function setMockScheduleEnabled(lampId: number, value: boolean) {
+	const lamp = mockState.lamps.find((lamp) => lamp.id === lampId);
+	if (!lamp) {
+		return getMockState();
+	}
+
+	lamp.scheduleEnabled = value;
 
 	return getMockState();
 }
