@@ -9,9 +9,17 @@ export interface IEsp32Time {
 	lostPower: boolean;
 }
 
-export interface ILampState extends Record<TLampChannel, number> {
+export interface ILampState {
 	id: number;
+	// текущие значения подаваемые на лампу
+	current: ILampChannelsState;
+	// ручные значения
+	manual: ILampChannelsState;
+	// для лампы включено расписание
+	scheduleEnabled: boolean;
 }
+
+export type ILampChannelsState = Record<TLampChannel, number>;
 
 export type TLampChannel = 'red' | 'blue';
 

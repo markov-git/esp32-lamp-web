@@ -3,9 +3,42 @@ import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, IEsp32Time, TLampCha
 
 const mockState: IEsp32State = {
 	lamps: [
-		{id: 1, red: 0, blue: 0},
-		{id: 2, red: 0, blue: 0},
-		{id: 3, red: 0, blue: 0}
+		{
+			id: 1,
+			current: {
+				red: 0,
+				blue: 0
+			},
+			manual: {
+				red: 0,
+				blue: 0
+			},
+			scheduleEnabled: false
+		},
+		{
+			id: 2,
+			current: {
+				red: 0,
+				blue: 0
+			},
+			manual: {
+				red: 0,
+				blue: 0
+			},
+			scheduleEnabled: false
+		},
+		{
+			id: 3,
+			current: {
+				red: 0,
+				blue: 0
+			},
+			manual: {
+				red: 0,
+				blue: 0
+			},
+			scheduleEnabled: false
+		}
 	],
 	time: {
 		unix: 1858709804,
@@ -23,7 +56,8 @@ export function setMockChannel(lampId: number, channel: TLampChannel, value: num
 		return getMockState();
 	}
 
-	lamp[channel] = value;
+	lamp.manual[channel] = value;
+	lamp.current[channel] = value;
 
 	return getMockState();
 }

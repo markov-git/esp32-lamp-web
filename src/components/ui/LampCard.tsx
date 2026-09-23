@@ -13,7 +13,7 @@ export const LampCard = (props: IProps) => {
 	const [processing, setProcessing] = useState(false);
 	const ctx = useAppContext();
 
-	const someChannelEnabled = !!props.value?.red || !!props.value?.blue;
+	const someChannelEnabled = !!props.value?.current.red || !!props.value?.current.blue;
 
 	const changeChannelValue = async (channel: TLampChannel, value: number) => {
 		if (!props.value || processing) return;
@@ -48,25 +48,27 @@ export const LampCard = (props: IProps) => {
 			red: 'Красный канал (Red)',
 			blue: 'Синий канал (Blue)'
 		}
-		const value = props.value?.[channel];
+		const currentValue = props.value?.current[channel];
+		const manualValue = props.value?.manual[channel];
 
 		return (
 			<Stack gap="xs">
 				<div className={"lamp-card-header" + (className || '')}>
 					<Text fw={500}>{captionByChannel[channel]}</Text>
 
-					<Text fw={500}>{`${value ?? '-'} %`}</Text>
+					<Text fw={500}>{`${currentValue ?? '-'} %`}</Text>
 				</div>
 
 				<Stack>
 					<Progress
-						value={value ?? 0}
+						value={currentValue ?? 0}
 						color={channel}
 						size="xl"
 						transitionDuration={500}
+						animated={processing}
 					/>
 					<Slider
-						value={value ?? 0}
+						value={manualValue ?? 0}
 						onChange={v => changeChannelValue(channel, v)}
 						color={channel}
 						disabled={processing}
