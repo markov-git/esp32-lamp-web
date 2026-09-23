@@ -14,6 +14,7 @@ export const LampCard = (props: IProps) => {
 	const ctx = useAppContext();
 
 	const someChannelEnabled = !!props.value?.current.red || !!props.value?.current.blue;
+	const lampScheduleEnabled = props.value?.scheduleEnabled || false;
 
 	const changeChannelValue = async (channel: TLampChannel, value: number) => {
 		if (!props.value || processing) return;
@@ -71,7 +72,7 @@ export const LampCard = (props: IProps) => {
 						value={manualValue ?? 0}
 						onChange={v => changeChannelValue(channel, v)}
 						color={channel}
-						disabled={processing}
+						disabled={processing || lampScheduleEnabled}
 					/>
 				</Stack>
 			</Stack>
@@ -94,7 +95,7 @@ export const LampCard = (props: IProps) => {
 						checked={someChannelEnabled}
 						onChange={toggleLamp}
 						color="green"
-						disabled={processing}
+						disabled={processing || lampScheduleEnabled}
 					/>
 				</div>
 
