@@ -1,4 +1,3 @@
-
 export interface IEsp32State {
 	lamps: ILampState[];
 	time: IEsp32Time;
@@ -55,11 +54,31 @@ export interface IEsp32SystemInfo {
 	filesystemTotal: 1441792,
 	filesystemUsed: 180224,
 
-	ip: "192.168.31.83",
-	gateway: "192.168.31.1",
-	subnet: "255.255.255.0",
-	mac: "00:70:07:A3:CC:E8",
+	ip: '192.168.31.83',
+	gateway: '192.168.31.1',
+	subnet: '255.255.255.0',
+	mac: '00:70:07:A3:CC:E8',
 	wifiRssi: -64,
 
 	chipTemperature: 39.44444
+}
+
+export interface IScheduleInfo {
+	lamps: ILampSchedule[];
+}
+
+export interface ILampSchedule {
+	id: number;
+	enabled: boolean;
+	blue: IScheduleEntry[];
+	red: IScheduleEntry[];
+}
+
+export interface IScheduleEntry {
+	brightness: number;
+	days: number;
+	end: number;
+	fadeIn: number;
+	fadeOut: number;
+	start: number;
 }

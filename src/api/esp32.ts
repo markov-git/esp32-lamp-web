@@ -1,11 +1,20 @@
-import type { IEsp32Sensors, IEsp32State, IEsp32SystemInfo, IEsp32Time, TLampChannel } from '../types/esp32.ts';
+import type {
+	IEsp32Sensors,
+	IEsp32State,
+	IEsp32SystemInfo,
+	IEsp32Time, IScheduleEntry,
+	IScheduleInfo,
+	TLampChannel,
+} from '../types/esp32.ts';
 import {
+	addMockSchedule, deleteMockSchedule,
+	getMockSchedules,
 	getMockSensors,
 	getMockState,
 	getMockSystem,
 	getMockTime,
 	setMockChannel,
-	setMockScheduleEnabled,
+	setMockScheduleEnabled, updateMockSchedule,
 } from './esp32.mock.ts';
 import { wait } from '../utils/promise.ts';
 
@@ -116,6 +125,93 @@ export async function setScheduleEnabled(lampId: number, value: boolean): Promis
 		body: JSON.stringify({
 			lamp: lampId,
 			enabled: value,
+		}),
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
+}
+
+export async function getSchedules(): Promise<IScheduleInfo> {
+	if (useMockApi) { return getMockSchedules(); }
+
+	const response = await fetch('/api/schedules')
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
+}
+
+export async function addScheduleEntry(lampId: number, channel: TLampChannel, entry: IScheduleEntry): Promise<IScheduleInfo> {
+	if (useMockApi) {
+		await wait(3_000);
+		return addMockSchedule(lampId, channel, entry);
+	}
+
+	const response = await fetch('api/schedules/add', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			lamp: lampId,
+			channel,
+			entry,
+		}),
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
+}
+
+export async function updateScheduleEntry(lampId: number, channel: TLampChannel, index: number, entry: IScheduleEntry): Promise<IScheduleInfo> {
+	if (useMockApi) {
+		await wait(1_000);
+		return updateMockSchedule(lampId, channel, index, entry);
+	}
+
+	const response = await fetch('api/schedules/update', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			lamp: lampId,
+			channel,
+			index,
+		}),
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
+}
+
+export async function deleteScheduleEntry(lampId: number, channel: TLampChannel, index: number): Promise<IScheduleInfo> {
+	if (useMockApi) {
+		await wait(1_000);
+		return deleteMockSchedule(lampId, channel, index);
+	}
+
+	const response = await fetch('api/schedules/delete', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			lamp: lampId,
+			channel,
+			index,
 		}),
 	});
 
