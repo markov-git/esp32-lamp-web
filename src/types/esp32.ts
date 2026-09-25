@@ -36,31 +36,31 @@ export interface IEsp32Sensors {
 }
 
 export interface IEsp32SystemInfo {
-	chipModel: string,
-	chipRevision: 3,
-	cpuCores: 2,
-	cpuFrequencyMhz: 240,
-	uptimeSeconds: 18,
+	chipModel: string;
+	chipRevision: number;
+	cpuCores: number;
+	cpuFrequencyMhz: number;
+	uptimeSeconds: number;
 
-	freeHeap: 241920,
-	totalHeap: 326852,
-	minimumFreeHeap: 225920,
+	freeHeap: number;
+	totalHeap: number;
+	minimumFreeHeap: number;
 
-	flashSize: 4194304,
+	flashSize: number;
 
-	sketchSize: 867344,
-	freeSketchSpace: 1310720,
+	sketchSize: number;
+	freeSketchSpace: number;
 
-	filesystemTotal: 1441792,
-	filesystemUsed: 180224,
+	filesystemTotal: number;
+	filesystemUsed: number;
 
-	ip: '192.168.31.83',
-	gateway: '192.168.31.1',
-	subnet: '255.255.255.0',
-	mac: '00:70:07:A3:CC:E8',
-	wifiRssi: -64,
+	ip: string;
+	gateway: string;
+	subnet: string;
+	mac: string;
+	wifiRssi: number;
 
-	chipTemperature: 39.44444
+	chipTemperature: number;
 }
 
 export interface IScheduleInfo {
