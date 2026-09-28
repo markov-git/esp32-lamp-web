@@ -16,14 +16,16 @@ function App() {
 	const [ sensors, setSensors ] = useState<IEsp32Sensors | undefined>(undefined);
 	const [ connected, setConnected ] = useState(true);
 	const [ loading, setLoading ] = useState(true);
-	const [ error, setError ] = useState<string | null>(null);
 	const [ activeTab, setActiveTab ] = useState<TAppTabId>('dashboard');
 
 	useEffect(() => {
 		const requestState = () => {
 			getState()
 				.then(setState)
-				.catch(() => setError('Failed to connect to ESP32'))
+				.catch(() => {
+					console.error('Failed to connect to ESP32');
+					setConnected(false);
+				})
 				.finally(() => {
 					setLoading(false);
 					setTimeout(requestState, 15_000);
@@ -59,10 +61,6 @@ function App() {
 
 	if (!state) {
 		return <div>Empty state info</div>;
-	}
-
-	if (error) {
-		return <div>{ error }</div>;
 	}
 
 	return (
