@@ -4,6 +4,7 @@ import type { IEsp32Sensors, IEsp32State } from './types/esp32.ts';
 import { AppContextProvider } from './Context.tsx';
 import './App.css';
 import "@mantine/core/styles.css";
+import '@mantine/dates/styles.css';
 import { Sidebar } from './components/Sidebar.tsx';
 import { ControlPage } from './components/ControlPage.tsx';
 import type { TAppTabId } from './types/app.ts';

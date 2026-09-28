@@ -75,6 +75,22 @@
     box-shadow: 0 0 0 4px #18352a
 }
 
+.color-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.color-dot._red {
+    background: #d53250;
+    box-shadow: 0 0 0 2px rgba(53, 24, 29, 0.2)
+}
+
+.color-dot._blue {
+    background: #3248d5;
+    box-shadow: 0 0 0 2px rgba(149, 161, 198, 0.20)
+}
+
 .main {
     margin-left: 230px;
     width: calc(100% - 230px);

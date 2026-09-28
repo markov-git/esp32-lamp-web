@@ -55,7 +55,7 @@ const mockState: IEsp32State = {
 const mockSchedule: IScheduleInfo = {
 	lamps: [
 		{
-			id: 1,
+			lampId: 1,
 			enabled: false,
 			red: [
 				{
@@ -79,13 +79,13 @@ const mockSchedule: IScheduleInfo = {
 			],
 		},
 		{
-			id: 2,
-			enabled: false,
+			lampId: 2,
+			enabled: true,
 			red: [],
 			blue: [],
 		},
 		{
-			id: 3,
+			lampId: 3,
 			enabled: false,
 			red: [],
 			blue: [],
@@ -111,7 +111,7 @@ export function setMockChannel(lampId: number, channel: TLampChannel, value: num
 
 export function setMockScheduleEnabled(lampId: number, value: boolean) {
 	const lamp = mockState.lamps.find((lamp) => lamp.id === lampId);
-	const lampSchedule = mockSchedule.lamps.find((lamp) => lamp.id === lampId);
+	const lampSchedule = mockSchedule.lamps.find((lamp) => lamp.lampId === lampId);
 	if (!lamp || !lampSchedule) {
 		return getMockState();
 	}
@@ -185,7 +185,7 @@ export function getMockSchedules(): IScheduleInfo {
 }
 
 export function addMockSchedule(lampId: number, channel: TLampChannel, entry: IScheduleEntry): IScheduleInfo {
-	const candidate = mockSchedule.lamps.find((lamp) => lamp.id === lampId);
+	const candidate = mockSchedule.lamps.find((lamp) => lamp.lampId === lampId);
 
 	if (!candidate) {
 		return getMockSchedules();
@@ -197,7 +197,7 @@ export function addMockSchedule(lampId: number, channel: TLampChannel, entry: IS
 }
 
 export function updateMockSchedule(lampId: number, channel: TLampChannel, index: number, entry: IScheduleEntry): IScheduleInfo {
-	const candidate = mockSchedule.lamps.find((lamp) => lamp.id === lampId);
+	const candidate = mockSchedule.lamps.find((lamp) => lamp.lampId === lampId);
 
 	if (!candidate) {
 		return getMockSchedules();
@@ -209,7 +209,7 @@ export function updateMockSchedule(lampId: number, channel: TLampChannel, index:
 }
 
 export function deleteMockSchedule(lampId: number, channel: TLampChannel, index: number): IScheduleInfo {
-	const candidate = mockSchedule.lamps.find((lamp) => lamp.id === lampId);
+	const candidate = mockSchedule.lamps.find((lamp) => lamp.lampId === lampId);
 
 	if (!candidate) {
 		return getMockSchedules();

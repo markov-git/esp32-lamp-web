@@ -68,7 +68,7 @@ export interface IScheduleInfo {
 }
 
 export interface ILampSchedule {
-	id: number;
+	lampId: number;
 	enabled: boolean;
 	blue: IScheduleEntry[];
 	red: IScheduleEntry[];
@@ -78,7 +78,7 @@ export interface IScheduleEntry {
 	brightness: number;
 	days: number;
 	end: number;
+	start: number;
 	fadeIn: number;
 	fadeOut: number;
-	start: number;
 }

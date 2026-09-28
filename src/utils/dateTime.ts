@@ -6,11 +6,11 @@ export function formatDuration(totalSeconds: number) {
 	const seconds = Math.floor(totalSeconds % 60);
 
 	return [
-		months && `${months} мес.`,
-		days && `${String(days).padStart(2, '0')} д.`,
-		hours && `${String(hours).padStart(2, '0')} ч.`,
-		`${String(minutes).padStart(2, '0')} мин.`,
-		`${String(seconds).padStart(2, '0')} сек.`,
+		months && `${ months } мес.`,
+		days && `${ String(days).padStart(2, '0') } д.`,
+		hours && `${ String(hours).padStart(2, '0') } ч.`,
+		`${ String(minutes).padStart(2, '0') } мин.`,
+		`${ String(seconds).padStart(2, '0') } сек.`,
 	].filter(Boolean).join(' ');
 }
 
@@ -30,3 +30,31 @@ export function formatDate(valueInSeconds: number | undefined): string {
 		hour12: false,
 	}).replace(',', '');
 }
+
+export function formatMinutes(value: number): string {
+	if (typeof value !== 'number') {
+		return '';
+	}
+	const hours = Math.floor(value / 60);
+	const minutes = Math.floor(value % 60);
+
+	return `${ hours.toString().padStart(2, '0') }:${ minutes.toString().padStart(2, '0') }`;
+}
+
+export function getMinutesFromFormattedString(value: string): number {
+	if (!value || !value.includes(':')) {
+		return 0;
+	}
+	const [ hours, minutes ] = value.split(':');
+	return (+hours * 60) + (+minutes);
+}
+
+export const days = [
+	{index: 1, label: 'Понедельник'},
+	{index: 2, label: 'Вторник'},
+	{index: 3, label: 'Среда'},
+	{index: 4, label: 'Четверг'},
+	{index: 5, label: 'Пятница'},
+	{index: 6, label: 'Суббота'},
+	{index: 0, label: 'Воскресенье'},
+];
