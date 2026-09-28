@@ -20,10 +20,15 @@ function App() {
 	const [ activeTab, setActiveTab ] = useState<TAppTabId>('dashboard');
 
 	useEffect(() => {
-		getState()
-			.then(setState)
-			.catch(() => setError('Failed to connect to ESP32'))
-			.finally(() => setLoading(false));
+		const requestState = () => {
+			getState()
+				.then(setState)
+				.catch(() => setError('Failed to connect to ESP32'))
+				.finally(() => {
+					setLoading(false);
+					setTimeout(requestState, 15_000);
+				});
+		}
 
 		const requestSensors = () => {
 			getSensorsInfo()
@@ -38,6 +43,7 @@ function App() {
 					setTimeout(requestSensors, 3_000);
 				});
 		}
+		requestState();
 		requestSensors();
 	}, []);
 

@@ -187,6 +187,7 @@ export async function updateScheduleEntry(lampId: number, channel: TLampChannel,
 			lamp: lampId,
 			channel,
 			index,
+			entry,
 		}),
 	});
 
