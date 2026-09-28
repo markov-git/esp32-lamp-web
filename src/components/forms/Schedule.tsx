@@ -157,6 +157,7 @@ export const Schedule = () => {
 
 			// сбросим на всякий стейт
 			setEntryToEdit(createEmptyEntry());
+			close();
 		} catch (e) {
 			console.error(e);
 		} finally {
