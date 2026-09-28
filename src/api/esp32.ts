@@ -113,7 +113,7 @@ export async function setTime(timeStampInSeconds: number): Promise<IEsp32Time> {
 
 export async function setScheduleEnabled(lampId: number, value: boolean): Promise<IEsp32State> {
 	if (useMockApi) {
-		await wait(3_000);
+		await wait(1_000);
 		return setMockScheduleEnabled(lampId, value);
 	}
 

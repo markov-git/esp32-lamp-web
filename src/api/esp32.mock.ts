@@ -55,7 +55,7 @@ const mockState: IEsp32State = {
 const mockSchedule: IScheduleInfo = {
 	lamps: [
 		{
-			id: 0,
+			id: 1,
 			enabled: false,
 			red: [
 				{
@@ -79,13 +79,13 @@ const mockSchedule: IScheduleInfo = {
 			],
 		},
 		{
-			id: 1,
+			id: 2,
 			enabled: false,
 			red: [],
 			blue: [],
 		},
 		{
-			id: 2,
+			id: 3,
 			enabled: false,
 			red: [],
 			blue: [],
@@ -111,11 +111,13 @@ export function setMockChannel(lampId: number, channel: TLampChannel, value: num
 
 export function setMockScheduleEnabled(lampId: number, value: boolean) {
 	const lamp = mockState.lamps.find((lamp) => lamp.id === lampId);
-	if (!lamp) {
+	const lampSchedule = mockSchedule.lamps.find((lamp) => lamp.id === lampId);
+	if (!lamp || !lampSchedule) {
 		return getMockState();
 	}
 
 	lamp.scheduleEnabled = value;
+	lampSchedule.enabled = value;
 
 	return getMockState();
 }

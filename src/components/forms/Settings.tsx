@@ -48,12 +48,12 @@ export const Settings = () => {
 		);
 	}
 
-	if (!state) {
-		return <div>Empty state info</div>;
-	}
-
 	if (error) {
 		return <div>{ error }</div>;
+	}
+
+	if (!state) {
+		return <div>Empty state info</div>;
 	}
 
 	const heapUtilisation = Math.round(state.totalHeap - state.freeHeap);

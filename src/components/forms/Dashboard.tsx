@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormHead } from '../ui/FormHead.tsx';
 import { SensorCard } from '../ui/SensorCard.tsx';
 import { useAppContext } from '../../Context.tsx';
-import { LampCard } from '../ui/LampCard.tsx';
+import { LampCard } from '../ui/LampManualCard/LampCard.tsx';
 
 import { SimpleGrid, Stack, Title } from '@mantine/core';
 import { formatHumidity, formatPressure, formatTemperature } from '../../utils/sensors.ts';

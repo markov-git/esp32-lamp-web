@@ -1,9 +1,9 @@
-import type { ILampState, TLampChannel } from '../../types/esp32.ts';
+import type { ILampState, TLampChannel } from '../../../types/esp32.ts';
 import './LampCard.css'
-import { setManualChannel } from '../../api/esp32.ts';
+import { setManualChannel } from '../../../api/esp32.ts';
 import { useState } from 'react';
-import { useAppContext } from '../../Context.tsx';
-import { Card, Slider, Switch, Text, Progress, Stack } from '@mantine/core';
+import { useAppContext } from '../../../Context.tsx';
+import { Card, Slider, Switch, Text, Progress, Stack, Group } from '@mantine/core';
 
 interface IProps {
 	value: ILampState | undefined;
@@ -82,7 +82,7 @@ export const LampCard = (props: IProps) => {
 	return (
 		<Card withBorder style={{flex: 1}}>
 			<Stack>
-				<div className="lamp-card-header">
+				<Group gap="xs" justify="space-between">
 					<div className="lamp-card-icon">
 						<img src="/lamp.svg" alt=""/>
 					</div>
@@ -97,7 +97,7 @@ export const LampCard = (props: IProps) => {
 						color="green"
 						disabled={processing || lampScheduleEnabled}
 					/>
-				</div>
+				</Group>
 
 				<Stack gap="xl">
 					{renderChannelControls('red')}
