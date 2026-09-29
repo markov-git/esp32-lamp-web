@@ -39,6 +39,7 @@ export const Sidebar = (props: IProps) => {
 					<Stack>
 						{ renderTab('dashboard', 'Панель') }
 						{ renderTab('schedule', 'Расписание') }
+						{ renderTab('sensorsHistory', 'Графики') }
 						{ renderTab('settings', 'Настройки') }
 					</Stack>
 				</Stack>

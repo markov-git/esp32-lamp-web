@@ -6,6 +6,7 @@ import { AppContextProvider } from './Context.tsx';
 import './App.css';
 import "@mantine/core/styles.css";
 import '@mantine/dates/styles.css';
+import '@mantine/charts/styles.css';
 import { Sidebar } from './components/Sidebar.tsx';
 import { ControlPage } from './components/ControlPage.tsx';
 import { Center, Loader, MantineProvider } from '@mantine/core';
