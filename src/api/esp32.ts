@@ -59,7 +59,10 @@ export async function setManualChannel(lampId: number, channel: TLampChannel, va
 }
 
 export async function getSensorsInfo(): Promise<IEsp32Sensors> {
-	if (useMockApi) { return getMockSensors() }
+	if (useMockApi) {
+		await wait(500);
+		return getMockSensors();
+	}
 
 	const response = await fetch('/api/sensors')
 

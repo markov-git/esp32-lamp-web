@@ -1,5 +1,7 @@
 import './SensorCard.css';
-import { Card, LoadingOverlay } from '@mantine/core';
+import { Card, Group, LoadingOverlay, Skeleton } from '@mantine/core';
+import type { IAppSensorTimeValue } from '../../types/app.ts';
+import { Sparkline } from '@mantine/charts';
 
 interface IProps {
 	caption: string;
@@ -8,6 +10,8 @@ interface IProps {
 	loading?: boolean;
 
 	iconPath: string;
+
+	history: IAppSensorTimeValue[] | undefined;
 }
 
 export const SensorCard = (props: IProps) => {
@@ -15,26 +19,38 @@ export const SensorCard = (props: IProps) => {
 	return (
 		<Card withBorder>
 			<LoadingOverlay
-				visible={props.loading}
-				zIndex={1000}
-				overlayProps={{ radius: "sm", blur: 2 }}
+				visible={ props.loading }
+				zIndex={ 1000 }
+				overlayProps={ { radius: 'sm', blur: 2 } }
 			/>
 
-			<div className="indicator-card-container">
+			<Group gap={ 8 }>
 				<div className="indicator-card-icon">
-					<img src={props.iconPath} alt=""/>
+					<img src={ props.iconPath } alt=""/>
 				</div>
 
 				<div className="indicator-card-content">
 					<div className="indicator-card-caption">
-						{props.caption}
+						{ props.caption }
 					</div>
 
 					<div className="indicator-card-value">
-						{props.value}
+						{ props.value }
 					</div>
 				</div>
-			</div>
+			</Group>
+
+			<Skeleton visible={!Array.isArray(props.history)} mt="xs">
+				<Sparkline
+					h={ 60 }
+					data={ Array.isArray(props.history) ? props.history.map(v => v.value) : [] }
+					curveType="natural"
+					color="red"
+					fillOpacity={ 0.4 }
+					strokeWidth={ 1 }
+					trendColors={{ positive: 'teal.6', negative: 'red.6', neutral: 'gray.5' }}
+				/>
+			</Skeleton>
 		</Card>
-	)
-}
+	);
+};

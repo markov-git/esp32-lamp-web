@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
-import { getSensorsInfo, getState } from './api/esp32.ts';
+import { getHistory, getSensorsInfo, getState } from './api/esp32.ts';
 import type { IEsp32Sensors, IEsp32State } from './types/esp32.ts';
+import type { IAppSensorsHistory, TAppTabId } from './types/app.ts';
 import { AppContextProvider } from './Context.tsx';
 import './App.css';
 import "@mantine/core/styles.css";
 import '@mantine/dates/styles.css';
 import { Sidebar } from './components/Sidebar.tsx';
 import { ControlPage } from './components/ControlPage.tsx';
-import type { TAppTabId } from './types/app.ts';
 import { Center, Loader, MantineProvider } from '@mantine/core';
 import { theme } from "./theme";
+import { mapEspHistoryToAppHistory } from './dataMappers/espHistoryToAppHistory.ts';
 
 function App() {
 	const [ state, setState ] = useState<IEsp32State | undefined>(undefined);
 	const [ sensors, setSensors ] = useState<IEsp32Sensors | undefined>(undefined);
+	const [ sensorsDayHistory, setSensorsDayHistory ] = useState<IAppSensorsHistory | undefined>(undefined);
 	const [ connected, setConnected ] = useState(true);
 	const [ loading, setLoading ] = useState(true);
 	const [ activeTab, setActiveTab ] = useState<TAppTabId>('dashboard');
@@ -45,8 +47,24 @@ function App() {
 					setTimeout(requestSensors, 3_000);
 				});
 		}
+
+		const requestHistory = () => {
+			getHistory('day')
+				.then((history) => {
+					setSensorsDayHistory(mapEspHistoryToAppHistory(history));
+				})
+				.catch(() => {
+					console.error('Failed to connect to ESP32');
+				})
+				.finally(() => {
+					setTimeout(requestHistory, 600_000);
+				});
+		}
 		requestState();
 		requestSensors();
+
+		// Историю отложено запрашиваем - тяжелый запрос
+		setTimeout(requestHistory, 1_500);
 	}, []);
 
 	if (loading) {
@@ -69,6 +87,7 @@ function App() {
 				connected,
 				state,
 				sensors,
+				sensorsDayHistory,
 				changeState: setState,
 			}}>
 				<div className="app-shell">

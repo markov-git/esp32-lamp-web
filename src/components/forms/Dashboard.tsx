@@ -6,6 +6,7 @@ import { LampCard } from '../ui/LampManualCard/LampCard.tsx';
 
 import { SimpleGrid, Stack, Title } from '@mantine/core';
 import { formatHumidity, formatPressure, formatTemperature } from '../../utils/sensors.ts';
+import type { IAppSensorsHistory } from '../../types/app.ts';
 
 export const Dashboard: React.ComponentType = () => {
 	const ctx = useAppContext();
@@ -23,18 +24,21 @@ export const Dashboard: React.ComponentType = () => {
 					value={ formatTemperature(ctx?.sensors?.bme280.temperature) }
 					iconPath="/thermometer.svg"
 					loading={ !ctx?.sensors?.bme280.temperature }
+					history={ ctx?.sensorsDayHistory?.temperature }
 				/>
 				<SensorCard
 					caption="Давление"
 					value={ formatPressure(ctx?.sensors?.bme280.pressure) }
 					iconPath="/pressure.svg"
-					loading={ !ctx?.sensors?.bme280.temperature }
+					loading={ !ctx?.sensors?.bme280.pressure }
+					history={ ctx?.sensorsDayHistory?.pressure }
 				/>
 				<SensorCard
 					caption="Влажность"
 					value={ formatHumidity(ctx?.sensors?.bme280.humidity) }
 					iconPath="/humidity.svg"
-					loading={ !ctx?.sensors?.bme280.temperature }
+					loading={ !ctx?.sensors?.bme280.humidity }
+					history={ ctx?.sensorsDayHistory?.humidity }
 				/>
 
 				{ new Array(3).fill(0).map((_, i) => {
@@ -46,6 +50,7 @@ export const Dashboard: React.ComponentType = () => {
 							value={ `${ soilMoisture?.percent || 0 }%` }
 							iconPath="/flower.svg"
 							loading={ !soilMoisture }
+							history={ ctx?.sensorsDayHistory?.[`soil${i + 1}` as keyof IAppSensorsHistory] }
 						/>
 					);
 				}) }

@@ -12,3 +12,12 @@ export interface IEditableEntry {
 	isNew: boolean;
 	entryIndex: number;
 }
+
+export type TAppSensorName = 'temperature' | 'humidity' | 'pressure' | 'soil1' | 'soil2' | 'soil3';
+
+export type IAppSensorsHistory = Record<TAppSensorName, IAppSensorTimeValue[]>;
+
+export interface IAppSensorTimeValue {
+	timestamp: number;
+	value: number;
+}
