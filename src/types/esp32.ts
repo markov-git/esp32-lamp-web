@@ -82,3 +82,24 @@ export interface IScheduleEntry {
 	fadeIn: number;
 	fadeOut: number;
 }
+
+export type THistoryRange = 'day' | 'month' | 'all';
+
+export interface IEsp32History {
+	range: THistoryRange;
+	records: IEsp32HistoryRecord[];
+}
+
+export interface IEsp32HistoryRecord {
+	// sec
+	timestamp: number;
+	temperature: number;
+	humidity: number;
+	pressure: number;
+	soil: IHistorySoilEntry[];
+}
+
+export interface IHistorySoilEntry {
+	percent: number;
+	raw: number;
+}

@@ -1,13 +1,14 @@
 import type {
+	IEsp32History,
 	IEsp32Sensors,
 	IEsp32State,
 	IEsp32SystemInfo,
 	IEsp32Time, IScheduleEntry,
-	IScheduleInfo,
+	IScheduleInfo, THistoryRange,
 	TLampChannel,
 } from '../types/esp32.ts';
 import {
-	addMockSchedule, deleteMockSchedule,
+	addMockSchedule, deleteMockSchedule, getMockHistory,
 	getMockSchedules,
 	getMockSensors,
 	getMockState,
@@ -213,6 +214,29 @@ export async function deleteScheduleEntry(lampId: number, channel: TLampChannel,
 			lamp: lampId,
 			channel,
 			index,
+		}),
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status}`)
+	}
+
+	return response.json()
+}
+
+export async function getHistory(range: THistoryRange): Promise<IEsp32History> {
+	if (useMockApi) {
+		await wait(3_000);
+		return getMockHistory(range);
+	}
+
+	const response = await fetch('api/history', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			range,
 		}),
 	});
 
